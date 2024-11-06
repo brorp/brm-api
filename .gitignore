@@ -1,0 +1,4 @@
+/node_modules
+.env
+brmargo.pem
+./config/config.json
