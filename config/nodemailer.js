@@ -1,15 +1,8 @@
 "use strict"
 const nodemailer = require('nodemailer');
 
-if (process.env.ENVIRONMENT != 'production') {
-    require('dotenv').config();
-}
-
-let sendMail = { send: true };
-
-if (process.env.NODE_ENV === 'test') { 
-    sendMail = {};
-}
+const dotenv = require("dotenv")
+dotenv.config();
 
 const Transport = nodemailer.createTransport({
     pool: true,
