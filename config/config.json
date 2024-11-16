@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "ryanpratama",
+    "username": "postgres",
     "password": "postgres",
     "database": "brm_agro",
     "host": "127.0.0.1",
