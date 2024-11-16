@@ -1,5 +1,5 @@
 /node_modules
 .env
-brmargo.pem
+brm.pem
 ./config/config.json
 .DS_Store
