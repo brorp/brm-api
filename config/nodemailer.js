@@ -34,154 +34,64 @@ const contactUsTemplate = (param) => {
     return {
       from: process.env.MAIL_FROM_ADDRESS,
       to: process.env.MAIL_TO_ADDRESS_CONTACT_US,
-      subject: `[CARBONXCO-WEB] ${param.subject}`,
-      html: `<div lang="en" role="article" aria-roledescription="email" aria-label="Reset Password">
-      <table
-         style="font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI',            sans-serif; height: 100%; width: 100%;"
-         role="presentation" cellspacing="0" cellpadding="0">
-         <tbody>
-            <tr>
-               <td style="border-radius: 5px; padding-top: 24px; padding-bottom: 24px; vertical-align: middle; background-color: #ffffff;"
-                  align="center" valign="middle">
-                  <table class="sm-w-full" style="width: 900px;" role="presentation" cellspacing="0" cellpadding="0">
-                     <tbody>
-                        <tr>
-                           <td class="sm-px-24">
-                              <table class="sm-w-full" style="width: 75%;" role="presentation" cellspacing="0"
-                                 cellpadding="0" align="center">
-                                 <tbody>
-                                    <tr>
-                                       <td style="padding-left: 48px; text-align: center;"><img style="width: 128px;"
-                                             src="https://carbonxco.s3.ap-southeast-1.amazonaws.com/Screenshot+2024-03-27+at+12.24.55.png"
-                                             alt="" /> <br /><br /></td>
-                                    </tr>
-                                    <tr>
-                                       <td class="sm-px-24" style="background-color: #ffffff; padding: 48px;">
-                                          <p
-                                             style="font-weight: 600; font-size: 18px; color: #374151; margin: 0; text-align: center; text-decoration: none;">
-                                             This email is coming from Contact Us form from carbonxco website.
-                                          <p style="font-size: 16px; line-height: 2; color: #374151; text-align: center;">
-                                             Data Preview:
-                                          </p>
-                                          <br />
-                                          <p
-                                             style="font-size: 16px; color: #374151; margin: 0; text-align: justify;">
-                                             Email:  ${param.email}<br />
-                                             Name:  ${param.name}<br />
-                                             Phone:  ${param.phone}<br />
-                                             Subject:  ${param.subject}<br />
-                                             <br /> ${param.body}<br />
-                                          </p>
-                                          <br />
-                                          <p style="font-size: 16px; line-height: 2; color: #374151; text-align: center;">
-                                             You can preview all data on cms Carbonxco</p>
-                                          <p style="color: #374151;">
-                                             <strong>Best Regards,</strong> <br />Carbonxco
-                                          </p>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td style="background-color: #ffffff; height: 2px;">&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                       <td style="font-size: 12px; padding: 32px; text-align: center; color: #000000;">
-                                          <p style="margin: 0 0 4px; text-transform: italic;">Please do not reply to this
-                                             email</p>
-                                       </td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                           </td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </div>`
+      subject: `[BRM-AGRO] ${param.subject}`,
+      html: `<!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>BRM AGRO - Contact Us Form</title>
+      </head>
+      <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f0f5f0;">
+          <table role="presentation" style="width: 100%; border-collapse: collapse;">
+              <tr>
+                  <td align="center" style="padding: 0;">
+                      <table role="presentation" style="width: 600px; border-collapse: collapse; text-align: left; background-color: #ffffff; margin: 20px 0;">
+                          <!-- Header -->
+                          <tr>
+                              <td style="padding: 40px 30px; background-color: #15381B;">
+                                 <img style="width: 128px;"
+                                    src="https://brm-agro.s3.ap-southeast-1.amazonaws.com/logo-2.png"
+                                    alt="" />
+                              </td>
+                          </tr>
+                          <!-- Main Content -->
+                          <tr>
+                              <td style="padding: 30px; background-color: #ffffff;">
+                                  <h2 style="color: #2E7D32; font-size: 24px;">Contact Us Form Data</h2>
+                                  <p style="color: #333333; font-size: 16px; line-height: 1.5;">
+                                    Email:  ${param.email}
+                                  </p>
+                                  <p style="color: #333333; font-size: 16px; line-height: 1.5;">
+                                    Name:  ${param.name}
+                                  </p>
+                                  <p style="color: #333333; font-size: 16px; line-height: 1.5;">
+                                    Title:  ${param.subject}
+                                  </p>
+                                  <p style="color: #333333; font-size: 16px; line-height: 1.5;">
+                                    Message:
+                                  </p>
+                                  <p style="color: #333333; font-size: 16px; line-height: 1.5;">
+                                    ${param.body}
+                                  </p>
+                              </td>
+                          </tr>
+                          <!-- Footer -->
+                          <tr>
+                              <td style="padding: 30px; background-color: #15381B; color: #ffffff; font-size: 14px; text-align: center;">
+                                  <p style="margin: 0;">© 2024 BRM AGRO. All rights reserved.</p>
+                              </td>
+                          </tr>
+                      </table>
+                  </td>
+              </tr>
+          </table>
+      </body>
+      </html>`
     }
-}
-
-const jobTemplate = (param) => {
-   return {
-     from: process.env.MAIL_FROM_ADDRESS,
-     to: process.env.MAIL_TO_ADDRESS_JOB,
-     subject: `[CARBONXCO-WEB] Career Application`,
-     html: `<div lang="en" role="article" aria-roledescription="email" aria-label="Reset Password">
-     <table
-        style="font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI',            sans-serif; height: 100%; width: 100%;"
-        role="presentation" cellspacing="0" cellpadding="0">
-        <tbody>
-           <tr>
-              <td style="border-radius: 5px; padding-top: 24px; padding-bottom: 24px; vertical-align: middle; background-color: #ffffff;"
-                 align="center" valign="middle">
-                 <table class="sm-w-full" style="width: 900px;" role="presentation" cellspacing="0" cellpadding="0">
-                    <tbody>
-                       <tr>
-                          <td class="sm-px-24">
-                             <table class="sm-w-full" style="width: 75%;" role="presentation" cellspacing="0"
-                                cellpadding="0" align="center">
-                                <tbody>
-                                   <tr>
-                                      <td style="padding-left: 48px; text-align: center;"><img style="width: 128px;"
-                                            src="https://carbonxco.s3.ap-southeast-1.amazonaws.com/Screenshot+2024-03-27+at+12.24.55.png"
-                                            alt="" /> <br /><br /></td>
-                                   </tr>
-                                   <tr>
-                                      <td class="sm-px-24" style="background-color: #ffffff; padding: 48px;">
-                                         <p
-                                            style="font-weight: 600; font-size: 18px; color: #374151; margin: 0; text-align: center; text-decoration: none;">
-                                            This email is coming from Job Opportunities form from carbonxco website.
-                                         <p style="font-size: 16px; line-height: 2; color: #374151; text-align: center;">
-                                            Data Preview:
-                                         </p>
-                                         <br />
-                                         <p
-                                            style="font-size: 16px; color: #374151; margin: 0; text-align: justify;">
-                                            Email:  ${param.email}<br />
-                                            Name:  ${param.name}<br />
-                                            Phone:  ${param.phone}<br />
-                                            Address:  ${param.address}<br />
-                                            <br /> Job Descriptions <br />
-                                            Title: ${param.title} <br />
-                                            Type: ${param.type}<br />
-                                            Location: ${param.location}</br>
-                                            
-                                         </p>
-                                         <br />
-                                         <p style="font-size: 16px; line-height: 2; color: #374151; text-align: center;">
-                                            You can preview all data on cms Carbonxco</p>
-                                         <p style="color: #374151;">
-                                            <strong>Best Regards,</strong> <br />Carbonxco
-                                         </p>
-                                      </td>
-                                   </tr>
-                                   <tr>
-                                      <td style="background-color: #ffffff; height: 2px;">&nbsp;</td>
-                                   </tr>
-                                   <tr>
-                                      <td style="font-size: 12px; padding: 32px; text-align: center; color: #000000;">
-                                         <p style="margin: 0 0 4px; text-transform: italic;">Please do not reply to this
-                                            email</p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                    </tbody>
-                 </table>
-              </td>
-           </tr>
-        </tbody>
-     </table>
-  </div>`
-   }
 }
 
 export {
     Transport,
-    contactUsTemplate,
-    jobTemplate
+    contactUsTemplate
 }

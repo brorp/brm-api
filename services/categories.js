@@ -1,39 +1,28 @@
-const { Jobs, sequelize } = require("../models/index");
+const { Categories, sequelize } = require("../models/index")
 const { Op } = require("sequelize");
 
-class JobService {
+class CategoryService {
     static all = async (params, next) => {
         try {
             let where = {}
+            let limit = params.limit || 5;
+            let offset = (params.page - 1) * limit || 0;
             if (params.keyword) {
                 where = {
                     [Op.or]: {
-                        title: {
+                        question: {
                             [Op.iLike]: `%${params.keyword}%`
                         },
-                        type: {
+                        answer: {
                             [Op.iLike]: `%${params.keyword}%`
-                        },
-                        location: {
-                            [Op.iLike]: `%${params.keyword}%`
-                        },
+                        }
                     }
                 }
             }
 
-            if (params.sort && params.order) {
-                order[0] = params.sort
-                order[1] = params.order
-            }
+            let cat = await Categories.findAll();
 
-            let jobs = await Jobs.findAndCountAll({
-                where,
-                attributes: {exclude: ["job_id", "user_id"]},
-                order: [['createdAt', 'ASC']],
-            });
-
-            return jobs;
-
+            return cat;
         } catch (error) {
             next(error)
         }
@@ -45,17 +34,11 @@ class JobService {
                 throw {code: 404, message: 'need params or id'}
             }
 
-            let job = await Jobs.findOne({
-                where: {id},
-                attributes: {exclude: ["job_id", "user_id"]}
-            })
-
-
-            if (!job ){
+            let cat = await Categories.findOne({where: {id}})
+            if (!cat) {
                 throw {code: 404, message: 'data not found'}
             }
-
-            return job
+            return cat
         } catch (error) {
             next(error)
         }
@@ -66,11 +49,10 @@ class JobService {
             if(!params) {
                 throw {code: 404, message: 'need params'}
             }
-            
-            let job = await Jobs.create(params, {returning: true})
+            let cat = await Categories.create(params)
 
-            return job
-        } catch (error){
+            return cat
+        } catch (error) {
             next(error)
         }
     }
@@ -81,9 +63,9 @@ class JobService {
                 throw {code: 404, message: 'need params or id'}
             }
 
-            let job = await Jobs.update(params, {where: {id}}, {returning: true})
+            await Categories.update(params, {where: {id}})
 
-            return job[1][0]
+            return true
         } catch (error) {
             next(error)
         }
@@ -95,7 +77,7 @@ class JobService {
                 throw {code: 404, message: 'need params id'}
             }
 
-            await Jobs.destroy({where: {id}})
+            await Categories.destroy({where: {id}})
             return true
         } catch (error) {
             next(error)
@@ -103,4 +85,4 @@ class JobService {
     }
 }
 
-module.exports = JobService
+module.exports = CategoryService

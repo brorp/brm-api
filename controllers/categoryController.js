@@ -1,7 +1,7 @@
 const pagination = require("../helpers/pagination");
-const FaqService = require('../services/faqs.js')
+const CategoryService = require('../services/categories.js')
 
-class FaqController {
+class CategoryController {
     static post = async(req, res, next) => {
         try {
             let params = req.parameters;
@@ -10,7 +10,7 @@ class FaqController {
                 "answer"
             ).value()
 
-            let data = await FaqService.create(params, next);
+            let data = await CategoryService.create(params, next);
             if(data) {
                 res.status(201).json({message: "Success Create"})
             }
@@ -22,7 +22,7 @@ class FaqController {
     static all = async(req,res,next) => {
         try {
             let { page, limit } = req.query
-            let data = await FaqService.all(req.query, next);
+            let data = await CategoryService.all(req.query, next);
             if (data) {
                 res.status(200).json(pagination(data, { page, limit }));
             }
@@ -34,7 +34,7 @@ class FaqController {
     static detail = async(req,res,next) => {
         try {
             let { id } = req.params;
-            let admin = await FaqService.detail(id, next);
+            let admin = await CategoryService.detail(id, next);
             if (admin) {
                 res.status(200).json(admin);
             }
@@ -52,7 +52,7 @@ class FaqController {
                 "answer"
             ).value()
 
-            let data = await FaqService.update(id, params, next);
+            let data = await CategoryService.update(id, params, next);
             if(data) {
                 res.status(201).json({message: "Success Update"})
             }
@@ -69,7 +69,7 @@ class FaqController {
                 "is_archived"
             ).value()
 
-            let data = await FaqService.update(id, params, next);
+            let data = await CategoryService.update(id, params, next);
             if(data) {
                 res.status(201).json({message: "Success Update"})
             }
@@ -81,7 +81,7 @@ class FaqController {
     static delete = async(req,res,next) => {
         try {
             let { id } = req.params;
-            let admin = await FaqService.delete(id, next);
+            let admin = await CategoryService.delete(id, next);
             if (admin) {
                 res.status(200).json({message: "Success Delete"});
             }
@@ -91,4 +91,4 @@ class FaqController {
     }
 }
 
-module.exports = FaqController
+module.exports = CategoryController

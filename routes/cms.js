@@ -1,13 +1,11 @@
 const express = require("express");
 const cms_router = express();
-const FaqController = require('../controllers/faqController');
-const ClientController = require('../controllers/clientController');
+
 const TeamController = require('../controllers/teamController');
 const BlogController = require('../controllers/blogController');
-const JobController = require('../controllers/jobController');
-const ProjectController = require('../controllers/projectController');
+const CertificationController = require('../controllers/certificationController');
+const TestimonialController = require('../controllers/testimonialController');
 const AuthController = require('../controllers/authController');
-const CareerController = require("@controllers/careerController");
 const authentication = require('../middlewares/authentication');
 const DocumentController = require("@controllers/documentController");
 const { parseFile } = require("@helpers/multer");
@@ -15,14 +13,6 @@ const { parseFile } = require("@helpers/multer");
 cms_router.post('/login', AuthController.login)
 
 cms_router.use(authentication)
-
-// FAQs
-cms_router.post("/faqs", FaqController.post);
-cms_router.get("/faqs", FaqController.all);
-cms_router.get("/faqs/:id", FaqController.detail);
-cms_router.put("/faqs/:id", FaqController.update);
-cms_router.patch("/faqs/:id/archive", FaqController.archived)
-cms_router.delete("/faqs/:id", FaqController.delete);
 
 // Teams
 cms_router.post("/teams", TeamController.post);
@@ -33,33 +23,24 @@ cms_router.delete("/teams/:id", TeamController.delete);
 
 // Blogs
 cms_router.post("/blogs", BlogController.post);
-cms_router.get("/blogs", BlogController.all);
+cms_router.get("/blogs", BlogController.all_cms);
 cms_router.get("/blogs/:id", BlogController.detail);
 cms_router.put("/blogs/:id", BlogController.update);
-cms_router.delete("/blogs/:id", BlogController.delete);
+cms_router.put("/blogs/:id", BlogController.update_status);
 
-// Projects
-cms_router.post("/projects", ProjectController.post);
-cms_router.get("/projects", ProjectController.all);
-cms_router.get("/projects/:id", ProjectController.detail);
-cms_router.put("/projects/:id", ProjectController.update);
-cms_router.delete("/projects/:id", ProjectController.delete);
+// Certifications
+cms_router.post("/certifications", CertificationController.post);
+cms_router.get("/certifications", CertificationController.all);
+cms_router.get("/certifications/:id", CertificationController.detail);
+cms_router.put("/certifications/:id", CertificationController.update);
+cms_router.delete("/certifications/:id", CertificationController.delete);
 
-// Contact Us
-cms_router.get("/contact-us", ClientController.all);
-cms_router.get("/contact-us/:id", ClientController.detail);
-cms_router.delete("/contact-us/:id", ClientController.delete);
-
-// Jobs
-cms_router.post("/jobs", JobController.post);
-cms_router.get("/jobs", JobController.all);
-cms_router.get("/jobs/:id", JobController.detail);
-cms_router.put("/jobs/:id", JobController.update);
-cms_router.delete("/jobs/:id", JobController.delete);
-
-// Applicant
-cms_router.get("/applicants", CareerController.all);
-cms_router.delete("/applicants/:id", CareerController.delete);
+// Testimonials
+cms_router.post("/testimonials", TestimonialController.post);
+cms_router.get("/testimonials", TestimonialController.all);
+cms_router.get("/testimonials/:id", TestimonialController.detail);
+cms_router.put("/testimonials/:id", TestimonialController.update);
+cms_router.delete("/testimonials/:id", TestimonialController.delete);
 
 cms_router.post("/documents", parseFile, DocumentController.post);
 cms_router.delete("/documents/:id", DocumentController.delete);

@@ -1,25 +1,20 @@
-const {Users} = require("../models/index");
 const { signToken } = require('../helpers/jwt')
-const { hash_password } = require('../helpers/hash')
 class AuthService {
     static login = async (params, next) => {
 
         try {
-            let response = await Users.findOne({
-                where: {
-                    email: params.email,
-                },
-                attributes: {exclude: 'user_id'}
-            });
+            let response = {
+                email: process.env.BRM_ADMIN_EMAIL,
+                pass: process.env.BRM_ADMIN_PASS
+            }
 
-            if (!response || response.password !== hash_password(params.password)) {
+            if (response.email != params.email || response.pass != params.password) {
                 throw { message: 'Email or Password is incorrect', code: 401 }
             }
 
             const access_token = signToken({
                 id: response.id,
-                email: response.email,
-                role: response.role
+                email: response.email
             })  
             return {
                 access_token: access_token

@@ -1,19 +1,25 @@
 const pagination = require("../helpers/pagination");
-const JobService = require('../services/jobs')
+const TestimonialService = require('../services/testimonials')
 
-class JobController {
+class TestimonialController {
     static post = async(req, res, next) => {
         try {
             let params = req.parameters;
             params = params.permit(
-                "type",
                 "title",
-                "location",
-                { 'requirement': [] },
-                { 'qualification': [] }
+                "description",
+                { 'documents': [
+                        "id",
+                        "file_type",
+                        "file_name",
+                        "url",
+                        "document_type",
+                        "key"             
+                    ] 
+                }
             ).value()
 
-            let data = await JobService.create(params, next);
+            let data = await TestimonialService.create(params, next);
             if(data) {
                 res.status(201).json(data)
             }
@@ -25,8 +31,7 @@ class JobController {
     static all = async(req,res,next) => {
         try {
             let { page, limit } = req.query
-            let { keyword, sort, order } = req.query
-            let data = await JobService.all({ keyword, sort, order }, next);
+            let data = await TestimonialService.all(req.query, next);
             if (data) {
                 res.status(200).json(pagination(data, { page, limit }));
             }
@@ -38,9 +43,9 @@ class JobController {
     static detail = async(req,res,next) => {
         try {
             let { id } = req.params;
-            let data = await JobService.detail(id, next);
-            if (data) {
-                res.status(200).json(data);
+            let blog = await TestimonialService.detail(id, next);
+            if (blog) {
+                res.status(200).json(blog);
             }
         } catch (error) {
             next(error)
@@ -52,14 +57,20 @@ class JobController {
             let {id} = req.params
             let params = req.parameters;
             params = params.permit(
-                "type",
                 "title",
-                "location",
-                { 'requirement': [] },
-                { 'qualification': [] }
+                "description",
+                { 'documents': [
+                        "id",
+                        "file_type",
+                        "file_name",
+                        "url",
+                        "document_type",
+                        "key"             
+                    ] 
+                }
             ).value()
 
-            let data = await JobService.update(id, params, next);
+            let data = await TestimonialService.update(id, params, next);
             if(data) {
                 res.status(201).json(data)
             }
@@ -70,8 +81,8 @@ class JobController {
 
     static delete = async(req,res,next) => {
         try {
-            let { id } = req.params;
-            let data = await JobService.delete(id, next);
+            params = req.params.id
+            let data = await TestimonialService.delete(params, next);
             if (data) {
                 res.status(200).json({message: "Success Delete"});
             }
@@ -81,4 +92,4 @@ class JobController {
     }
 }
 
-module.exports = JobController
+module.exports = TestimonialController

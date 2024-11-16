@@ -9,10 +9,10 @@ class BlogController {
                 "author",
                 "title",
                 "content",
-                "category",
-                "meta_title",
+                "category_id",
+                {"meta_tag": []},
                 "meta_description",
-                "project_summary",
+                "status",
                 { 'documents': [
                         "id",
                         "file_type",
@@ -33,10 +33,22 @@ class BlogController {
         }
     }
 
-    static all = async(req,res,next) => {
+    static all_cms = async(req,res,next) => {
         try {
             let { page, limit } = req.query
             let data = await BlogService.all(req.query, next);
+            if (data) {
+                res.status(200).json(pagination(data, { page, limit }));
+            }
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static all_web = async(req,res,next) => {
+        try {
+            let { page, limit } = req.query
+            let data = await BlogService.all(req.query, "published", next);
             if (data) {
                 res.status(200).json(pagination(data, { page, limit }));
             }
@@ -65,10 +77,10 @@ class BlogController {
                 "author",
                 "title",
                 "content",
-                "category",
-                "meta_title",
+                "category_id",
+                {"meta_tag": []},
                 "meta_description",
-                "project_summary",
+                "status",
                 { 'documents': [
                         "id",
                         "file_type",
@@ -89,12 +101,13 @@ class BlogController {
         }
     }
 
-    static delete = async(req,res,next) => {
+    static update_status = async(req,res,next) => {
         try {
-            let { id } = req.params;
-            let data = await BlogService.delete(id, next);
+            params = params.permit("status").value()
+            params.id = req.params.id
+            let data = await BlogService.update_status(params, next);
             if (data) {
-                res.status(200).json({message: "Success Delete"});
+                res.status(200).json({message: "Success Update status"});
             }
         } catch (error) {
             next(error)

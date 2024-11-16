@@ -3,12 +3,14 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Categories', {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.UUID,
-        default: Sequelize.UUIDV4,
+        type: Sequelize.UUID
+      },
+      title: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -17,27 +19,6 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      email: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      password: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      name: {
-        type: Sequelize.STRING,
-      },
-      phone: {
-        type: Sequelize.STRING,
-      },
-      address: {
-        type: Sequelize.TEXT,
-      },
-      role: {
-        allowNull: false,
-        type: Sequelize.ENUM("admin", "client", "applicant")
       }
     });
 
@@ -46,14 +27,6 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
       },
       author: {
         type: Sequelize.STRING,
@@ -82,14 +55,6 @@ module.exports = {
       },
       status: {
         type: Sequelize.ENUM('published', 'draft', 'deleted')
-      }
-    });
-
-    await queryInterface.createTable('Teams', {
-      id: {
-        allowNull: false,
-        primaryKey: true,
-        type: Sequelize.UUID
       },
       createdAt: {
         allowNull: false,
@@ -98,6 +63,14 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+    });
+
+    await queryInterface.createTable('Teams', {
+      id: {
+        allowNull: false,
+        primaryKey: true,
+        type: Sequelize.UUID
       },
       name: {
         allowNull: false,
@@ -112,14 +85,6 @@ module.exports = {
       link: {
         type: Sequelize.STRING,
       },
-    });
-
-    await queryInterface.createTable('Certifications', {
-      id: {
-        allowNull: false,
-        primaryKey: true,
-        type: Sequelize.UUID
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -127,6 +92,14 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+    });
+
+    await queryInterface.createTable('Certifications', {
+      id: {
+        allowNull: false,
+        primaryKey: true,
+        type: Sequelize.UUID
       },
       title: {
         allowNull: false,
@@ -156,17 +129,6 @@ module.exports = {
       }
     });
 
-    await queryInterface.createTable('Categories', {
-      id: {
-        allowNull: false,
-        primaryKey: true,
-        type: Sequelize.UUID
-      },
-      title: {
-        type: Sequelize.STRING
-      }
-    });
-
     await queryInterface.createTable('Documents', {
       id: {
         allowNull: false,
@@ -189,6 +151,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.ENUM("blogs", "farmer_testimonials", "certification_icons", "teams")
       },
+      url: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       key: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -201,53 +167,15 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      document_type: {
-        type: Sequelize.STRING,
-        allowNull: false
-      }
     });
-
-    await queryInterface.createTable('Clients', {
-      id: {
-        allowNull: false,
-        primaryKey: true,
-        type: Sequelize.UUID
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      user_id: {
-        allowNull: false,
-        type: Sequelize.UUID,
-        references: {
-          model: "Users",
-          key: "id",
-        },
-        onUpdate: "cascade",
-        onDelete: "cascade",
-      },
-      subject: {
-        type: Sequelize.STRING
-      },
-      body: {
-        type: Sequelize.TEXT
-      },
-    })
   },
 
   async down (queryInterface, Sequelize) {
     await queryInterface.dropTable('Certifications')
-    await queryInterface.dropTable('Clients')
     await queryInterface.dropTable('Testimonials');
     await queryInterface.dropTable('Blogs');
     await queryInterface.dropTable('Teams');
     await queryInterface.dropTable('Documents');
     await queryInterface.dropTable('Categories');
-    await queryInterface.dropTable('Users');
   }
 };

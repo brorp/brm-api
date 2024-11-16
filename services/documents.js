@@ -93,7 +93,6 @@ class DocumentService {
                         key: el.key,
                         file_name: el.file_name,
                         file_type: el.file_type,
-                        document_type: el.document_type,
                         url: el.url,
                     }, {
                         returning: true,
@@ -106,7 +105,6 @@ class DocumentService {
                         key: el.key,
                         file_name: el.file_name,
                         file_type: el.file_type,
-                        document_type: el.document_type,
                         url: el.url,
                     }, {
                         where: {id: el.id},

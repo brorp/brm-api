@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
         },
         as: 'documents', // Alias to access documents associated with a blog
       });
+      this.belongsTo(models.Categories, {
+        foreignKey: "category_id",
+        constraints: false,
+      });
     }
   }
   Blogs.init({

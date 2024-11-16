@@ -3,8 +3,19 @@ const {Transport, contactUsTemplate, jobTemplate} = require('../config/nodemaile
 class MailService {
     static sendContactusMail = async (param, next) => {
         try {
+            if(!param) {
+                throw {code: 404, message: 'need params'}
+            }
+
+            let params = {
+                email: param.email,
+                name: param.name,
+                subject: param.subject,
+                body: param.body
+            }
+
             Transport.sendMail(
-                contactUsTemplate(param),
+                contactUsTemplate(params),
                 (error) => {
                   if (error) {
                     throw {
@@ -16,30 +27,12 @@ class MailService {
                   }
                 }
             );
+
+            return true
         } catch (error) {
             next(error);
         }
     }
-
-    static sendJobMail = async (param, next) => {
-      try {
-          Transport.sendMail(
-              jobTemplate(param),
-              (error) => {
-                if (error) {
-                  throw {
-                      code: 400,
-                      name: "error sending mail",
-                  };
-                } else {
-                  console.log(`email sent to ${param.email}`);
-                }
-              }
-          );
-      } catch (error) {
-          next(error);
-      }
-  }
 }
 
-module.exports = { MailService }
+module.exports = MailService

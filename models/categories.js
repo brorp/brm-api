@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Certifications extends Model {
+  class Categories extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,16 +11,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.Documents, {
+      this.hasMany(models.Categories, {
         foreignKey: 'reference_id', // Assuming reference_id is the foreign key in the Documents table referencing the Blogs table
         scope: {
           reference_type: 'certification_icons', // Assuming reference_type is the column specifying the type of reference
         },
         as: 'documents', // Alias to access documents associated with a blog
       });
+
+      this.hasMany(models.Blogs, {
+        foreignKey: "category_id",
+        constraints: false
+      });
     }
   }
-  Certifications.init({
+  Categories.init({
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -30,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
   }, {
     sequelize,
-    modelName: 'Certifications',
+    modelName: 'Categories',
   });
-  return Certifications;
+  return Categories;
 };

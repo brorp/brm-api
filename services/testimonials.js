@@ -1,8 +1,8 @@
-const { Blogs, Documents, sequelize } = require("../models/index");
+const { Testimonials, Documents, sequelize } = require("../models/index");
 const { Op, Sequelize } = require("sequelize");
 const DocumentService = require("./documents");
 
-class BlogService {
+class TestimonialService {
     static all = async (params, next) => {
         try {
             let where = {}
@@ -11,35 +11,17 @@ class BlogService {
             if (params.keyword) {
                 where = {
                     [Op.or]: {
-                        author: {
-                            [Op.iLike]: `%${params.keyword}%`
-                        },
-                        content: {
-                            [Op.iLike]: `%${params.keyword}%`
-                        },
                         title: {
                             [Op.iLike]: `%${params.keyword}%`
                         },
-                        meta_tag: {
+                        description: {
                             [Op.iLike]: `%${params.keyword}%`
                         }
                     }
                 }
             }
 
-            if (params.category) {
-                where = {
-                    category_id: params.category_id
-                }
-            }
-
-            if (params.status) {
-                where = {
-                    status: params.status
-                }
-            }
-
-            let blogs = await Blogs.findAndCountAll({
+            let test = await Testimonials.findAndCountAll({
                 where,
                 include: [
                     {
@@ -53,7 +35,7 @@ class BlogService {
                 offset
             });
 
-            return blogs;
+            return test;
 
         } catch (error) {
             next(error)
@@ -66,7 +48,7 @@ class BlogService {
                 throw {code: 404, message: 'need params or id'}
             }
 
-            let blog = await Blogs.findOne({
+            let test = await Testimonials.findOne({
                 where: {id},
                 include: [
                     {
@@ -76,11 +58,11 @@ class BlogService {
                 ], 
             })
 
-            if (!blog ){
+            if (!test ){
                 throw {code: 404, message: 'data not found'}
             }
 
-            return blog
+            return test
         } catch (error) {
             next(error)
         }
@@ -93,15 +75,15 @@ class BlogService {
                 throw {code: 404, message: 'need params'}
             }
             
-            let blog = await Blogs.create(params, {
+            let test = await Testimonials.create(params, {
                 returning: true,
                 transaction
             })
 
             let docParams = {
                 documents: params.documents,
-                reference_id: blog.id,
-                reference_type: "blogs"
+                reference_id: test.id,
+                reference_type: "farmer_testimonials"
             }
             let document = await DocumentService.upsert(docParams, transaction, next);
 
@@ -109,8 +91,8 @@ class BlogService {
                 throw {code: 400, message: 'no documents found'}
             }
             
-            let res = await Blogs.findOne({
-                where: {id: blog.id},
+            let res = await Testimonials.findOne({
+                where: {id: test.id},
                 include: [
                     {
                         model: Documents, 
@@ -135,15 +117,15 @@ class BlogService {
                 throw {code: 404, message: 'need params or id'}
             }
 
-           let blog = await Blogs.update(params, {
+           let test = await Testimonials.update(params, {
                 where: {id}, 
                 returning:true
             }, {transaction})
 
             let docParams = {
                 documents: params.documents,
-                reference_id: blog[1][0].id,
-                reference_type: "blogs"
+                reference_id: test[1][0].id,
+                reference_type: "farmer_testimonials"
             }
 
             let document = await DocumentService.upsert(docParams, transaction, next);
@@ -151,8 +133,8 @@ class BlogService {
                 throw {code: 400, message: 'no documents found'}
             }
 
-            let res = await Blogs.findOne({
-                where: {id: blog[1][0].id},
+            let res = await Testimonials.findOne({
+                where: {id: test[1][0].id},
                 include: [
                     {
                         model: Documents, 
@@ -169,88 +151,19 @@ class BlogService {
         }
     }
 
-    static update_status = async (id, next) => {
+    static delete = async (id, next) => {
         try {
             if(!id) {
                 throw {code: 404, message: 'need params id'}
             }
 
-            await Blogs.update({status: params.status},{where: {id}})
+            await Testimonials.destroy({where: {id}})
 
             return true
         } catch (error) {
             next(error)
         }
     }
-
-    static getMore = async(id, next) => {
-        try {
-            if(!id) {
-                throw {code: 404, message: 'need params id'}
-            }
-
-            let existingBlog = await Blogs.findOne({
-                where: {id}
-            })
-
-            if (!existingBlog) {
-                throw {code: 404, message: 'data not found'}
-            }
-
-            let blog = {}
-
-            blog = await Blogs.findOne({
-                where: {
-                    [Op.and]: [
-                        {
-                            id: {[Op.not]: id}
-                        },
-                        {
-                            createdAt: {[Op.lt]: existingBlog.createdAt}
-                        },
-                        {
-                            category_id: existingBlog.category_id
-                        }
-                    ]
-                },
-                include: [
-                    {
-                        model: Documents, 
-                        as: 'documents', 
-                    },
-                ], 
-                order: [['createdAt', 'DESC']],
-                limit: 1
-            })
-
-            if (!blog) {
-                blog = await Blogs.findOne({
-                    where: {
-                        [Op.and]: [
-                            {
-                                id: {[Op.not]: id}
-                            },
-                            {
-                                createdAt: {[Op.lt]: existingBlog.createdAt}
-                            }
-                        ]
-                    },
-                    include: [
-                        {
-                            model: Documents, 
-                            as: 'documents', 
-                        },
-                    ], 
-                    order: [['createdAt', 'ASC']],
-                    limit: 1
-                })
-            }
-
-            return blog
-        } catch (error) {
-            next(error)
-        }
-    }
 }
 
-module.exports = BlogService
+module.exports = TestimonialService

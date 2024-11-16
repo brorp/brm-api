@@ -2,7 +2,7 @@
   "development": {
     "username": "ryanpratama",
     "password": "postgres",
-    "database": "brm_argo",
+    "database": "brm_agro",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
