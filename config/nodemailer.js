@@ -5,12 +5,12 @@ dotenv.config();
 
 const Transport = nodemailer.createTransport({
     pool: true,
-    host: "email-smtp.ap-southeast-1.amazonaws.com",
-    port: "465",
-    secure: "tls", // use TLS
+    host: process.env.MAIL_HOST,
+    port: process.env.MAIL_PORT,
+    secure: process.env.MAIL_ENCRYPTION, // use TLS
     auth: {
-      user: "AKIAYQYUAQGMAA6AUNVY",
-      pass: "BEA2b7ruK+/sCJehZuTKchnoSl5CmqkLBdbwh08gZmx9"
+      user: process.env.MAIL_USERNAME,
+      pass: process.env.MAIL_PASSWORD
     }
 });
 
@@ -24,8 +24,8 @@ Transport.verify(function(error, success) {
 
 const contactUsTemplate = (param) => {
     return {
-      from: "perahukertas41@gmail.com",
-      to: "ryan.feb28@gmail.com",
+      from: process.env.MAIL_FROM_ADDRESS,
+      to: process.env.MAIL_TO_ADDRESS_CONTACT_US,
       subject: `[BRM-AGRO] ${param.subject}`,
       html: `<!DOCTYPE html>
       <html lang="en">
