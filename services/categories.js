@@ -4,22 +4,6 @@ const { Op } = require("sequelize");
 class CategoryService {
     static all = async (params, next) => {
         try {
-            let where = {}
-            let limit = params.limit || 5;
-            let offset = (params.page - 1) * limit || 0;
-            if (params.keyword) {
-                where = {
-                    [Op.or]: {
-                        question: {
-                            [Op.iLike]: `%${params.keyword}%`
-                        },
-                        answer: {
-                            [Op.iLike]: `%${params.keyword}%`
-                        }
-                    }
-                }
-            }
-
             let cat = await Categories.findAll();
 
             return cat;

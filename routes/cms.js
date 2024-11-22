@@ -8,6 +8,7 @@ const TestimonialController = require('../controllers/testimonialController');
 const AuthController = require('../controllers/authController');
 const authentication = require('../middlewares/authentication');
 const DocumentController = require("@controllers/documentController");
+const CategoryController = require("@controllers/categoryController")
 const { parseFile } = require("@helpers/multer");
 
 cms_router.post('/login', AuthController.login)
@@ -20,6 +21,11 @@ cms_router.get("/teams", TeamController.all);
 cms_router.get("/teams/:id", TeamController.detail);
 cms_router.put("/teams/:id", TeamController.update);
 cms_router.delete("/teams/:id", TeamController.delete);
+
+// Categories
+cms_router.post("/categories", CategoryController.post);
+cms_router.get("/categories", CategoryController.all);
+cms_router.delete("/categories/:id", CategoryController.delete);
 
 // Blogs
 cms_router.post("/blogs", BlogController.post);

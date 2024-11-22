@@ -6,8 +6,7 @@ class CategoryController {
         try {
             let params = req.parameters;
             params = params.permit(
-                "question",
-                "answer"
+                "title"
             ).value()
 
             let data = await CategoryService.create(params, next);
@@ -21,57 +20,9 @@ class CategoryController {
 
     static all = async(req,res,next) => {
         try {
-            let { page, limit } = req.query
-            let data = await CategoryService.all(req.query, next);
+            let data = await CategoryService.all({}, next);
             if (data) {
-                res.status(200).json(pagination(data, { page, limit }));
-            }
-        } catch (error) {
-            next(error)
-        }
-    }
-
-    static detail = async(req,res,next) => {
-        try {
-            let { id } = req.params;
-            let admin = await CategoryService.detail(id, next);
-            if (admin) {
-                res.status(200).json(admin);
-            }
-        } catch (error) {
-            next(error)
-        }
-    }
-
-    static update = async(req, res, next) => {
-        try {
-            let {id} = req.params
-            let params = req.parameters;
-            params = params.permit(
-                "question",
-                "answer"
-            ).value()
-
-            let data = await CategoryService.update(id, params, next);
-            if(data) {
-                res.status(201).json({message: "Success Update"})
-            }
-        } catch (error) {
-            next(error)
-        }
-    }
-
-    static archived = async(req, res, next) => {
-        try {
-            let {id} = req.params
-            let params = req.parameters;
-            params = params.permit(
-                "is_archived"
-            ).value()
-
-            let data = await CategoryService.update(id, params, next);
-            if(data) {
-                res.status(201).json({message: "Success Update"})
+                res.status(200).json(data);
             }
         } catch (error) {
             next(error)
