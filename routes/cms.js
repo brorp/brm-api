@@ -26,7 +26,7 @@ cms_router.post("/blogs", BlogController.post);
 cms_router.get("/blogs", BlogController.all_cms);
 cms_router.get("/blogs/:id", BlogController.detail);
 cms_router.put("/blogs/:id", BlogController.update);
-cms_router.put("/blogs/:id", BlogController.update_status);
+cms_router.put("/blogs/:id/status", BlogController.update_status);
 
 // Certifications
 cms_router.post("/certifications", CertificationController.post);

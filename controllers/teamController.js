@@ -15,7 +15,6 @@ class TeamController {
                         "file_type",
                         "file_name",
                         "url",
-                        "document_type",
                         "key"             
                     ] 
                 }

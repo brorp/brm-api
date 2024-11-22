@@ -18,7 +18,6 @@ class BlogController {
                         "file_type",
                         "file_name",
                         "url",
-                        "document_type",
                         "key"             
                     ] 
                 }
@@ -86,7 +85,6 @@ class BlogController {
                         "file_type",
                         "file_name",
                         "url",
-                        "document_type",
                         "key"             
                     ] 
                 }

@@ -12,7 +12,6 @@ class CertificationController {
                         "file_type",
                         "file_name",
                         "url",
-                        "document_type",
                         "key"             
                     ] 
                 }
@@ -62,7 +61,6 @@ class CertificationController {
                         "file_type",
                         "file_name",
                         "url",
-                        "document_type",
                         "key"             
                     ] 
                 }

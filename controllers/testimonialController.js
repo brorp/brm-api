@@ -13,7 +13,6 @@ class TestimonialController {
                         "file_type",
                         "file_name",
                         "url",
-                        "document_type",
                         "key"             
                     ] 
                 }
@@ -64,7 +63,6 @@ class TestimonialController {
                         "file_type",
                         "file_name",
                         "url",
-                        "document_type",
                         "key"             
                     ] 
                 }
