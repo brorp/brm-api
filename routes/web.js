@@ -16,7 +16,7 @@ web_router.get("/teams/:id", TeamController.detail);
 web_router.get("/certifications", CertificationController.all);
 web_router.get("/certifications/:id", CertificationController.detail);
 
-cms_router.get("/categories", CategoryController.all);
+web_router.get("/categories", CategoryController.all);
 
 web_router.get("/blogs", BlogController.all_web);
 web_router.get("/blogs/:id", BlogController.detail);
