@@ -10,14 +10,6 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
-      this.hasMany(models.Categories, {
-        foreignKey: 'reference_id', // Assuming reference_id is the foreign key in the Documents table referencing the Blogs table
-        scope: {
-          reference_type: 'certification_icons', // Assuming reference_type is the column specifying the type of reference
-        },
-        as: 'documents', // Alias to access documents associated with a blog
-      });
 
       this.hasMany(models.Blogs, {
         foreignKey: "category_id",
