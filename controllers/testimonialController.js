@@ -79,8 +79,8 @@ class TestimonialController {
 
     static delete = async(req,res,next) => {
         try {
-            params = req.params.id
-            let data = await TestimonialService.delete(params, next);
+            let { id } = req.params;
+            let data = await TestimonialService.delete(id, next);
             if (data) {
                 res.status(200).json({message: "Success Delete"});
             }

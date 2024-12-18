@@ -101,6 +101,7 @@ class BlogController {
 
     static update_status = async(req,res,next) => {
         try {
+            let params = req.parameters;
             params = params.permit("status").value()
             params.id = req.params.id
             let data = await BlogService.update_status(params, next);
