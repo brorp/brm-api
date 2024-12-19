@@ -103,8 +103,7 @@ class BlogController {
         try {
             let params = req.parameters;
             params = params.permit("status").value()
-            params.id = req.params.id
-            let data = await BlogService.update_status(params, next);
+            let data = await BlogService.update_status(req.params.id, params, next);
             if (data) {
                 res.status(200).json({message: "Success Update status"});
             }

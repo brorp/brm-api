@@ -17,7 +17,7 @@ const error = (err, req, res, next) => {
         status: 400,
         message: err.message,
       });
-    } else if (err.name === 'invalidtoken') {
+    } else if (err.name === 'invalidtoken' || err.name === 'JsonWebTokenError') {
       res.status(401).json({
         status: 401,
         message: 'Invalid Token',

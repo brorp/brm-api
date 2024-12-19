@@ -188,7 +188,7 @@ class BlogService {
         }
     }
 
-    static update_status = async (id, next) => {
+    static update_status = async (id, params, next) => {
         try {
             if(!id) {
                 throw {code: 404, message: 'need params id'}
