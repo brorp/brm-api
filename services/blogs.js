@@ -1,4 +1,4 @@
-const { Blogs, Documents, sequelize } = require("../models/index");
+const { Blogs, Documents, Categories, sequelize } = require("../models/index");
 const { Op, Sequelize } = require("sequelize");
 const DocumentService = require("./documents");
 
@@ -46,11 +46,30 @@ class BlogService {
                         model: Documents, 
                         as: 'documents', 
                     },
+                    {
+                        model: Categories,
+                        attributes: ["name"]
+                    }
                 ],
                 distinct: true,
                 order: [['createdAt', 'DESC']],
                 limit,
                 offset
+            });
+
+            let blogs = blogsResult.rows.map((blog) => {
+                const categoryName = blog.Category?.name || null; // Extract 'name' from Categories
+                return {
+                    id: blog.id,
+                    title: blog.title,
+                    author: blog.author,
+                    content: blog.content,
+                    meta_tag: blog.meta_tag,
+                    meta_description: blog.meta_description,
+                    status: blog.status,
+                    category_id: categoryName, // Include category as 'category_id'
+                    documents: blog.documents, // Include documents as-is
+                };
             });
 
             return blogs;
