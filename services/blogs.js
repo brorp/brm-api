@@ -57,22 +57,22 @@ class BlogService {
                 offset
             });
 
-            let blogs = blog.rows.map((blog) => {
-                const categoryName = blog.Categories.title || null; // Extract 'name' from Categories
-                return {
-                    id: blog.id,
-                    title: blog.title,
-                    author: blog.author,
-                    content: blog.content,
-                    meta_tag: blog.meta_tag,
-                    meta_description: blog.meta_description,
-                    status: blog.status,
-                    category_id: categoryName, // Include category as 'category_id'
-                    documents: blog.documents, // Include documents as-is
-                };
-            });
+            // let blogs = blog.rows.map((blog) => {
+            //     const categoryName = blog.Categories.title || null; // Extract 'name' from Categories
+            //     return {
+            //         id: blog.id,
+            //         title: blog.title,
+            //         author: blog.author,
+            //         content: blog.content,
+            //         meta_tag: blog.meta_tag,
+            //         meta_description: blog.meta_description,
+            //         status: blog.status,
+            //         category_id: categoryName, // Include category as 'category_id'
+            //         documents: blog.documents, // Include documents as-is
+            //     };
+            // });
 
-            return blogs;
+            return blog;
 
         } catch (error) {
             next(error)
