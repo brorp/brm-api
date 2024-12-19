@@ -6,6 +6,9 @@ const BlogController = require('../controllers/blogController');
 const TestimonialController = require('../controllers/testimonialController');
 const CertificationController = require('../controllers/certificationController');
 const CategoryController = require("@controllers/categoryController")
+const CompanyController = require("@controllers/companyController")
+
+web_router.get("/companies", CompanyController.get);
 
 web_router.get("/testiomonials", TestimonialController.all);
 web_router.get("/testiomonials/:id", TestimonialController.detail);

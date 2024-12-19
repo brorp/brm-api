@@ -1,5 +1,4 @@
 const { Categories, sequelize } = require("../models/index")
-const { Op } = require("sequelize");
 
 class CategoryService {
     static all = async (params, next) => {
