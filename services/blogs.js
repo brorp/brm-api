@@ -193,6 +193,14 @@ class BlogService {
             if(!id) {
                 throw {code: 404, message: 'need params id'}
             }
+            let blog = await Blogs.findOne({where: {id}})
+            if (!blog) {
+                throw {code: 404, message: 'blog not found'}
+            }
+
+            if (blog.status === "deleted") {
+                throw {code: 403, message: 'blog has been deleted'}
+            }
 
             await Blogs.update({status: params.status},{where: {id}})
 
