@@ -39,7 +39,7 @@ class BlogService {
                 }
             }
 
-            let blogs = await Blogs.findAndCountAll({
+            let blog = await Blogs.findAndCountAll({
                 where,
                 include: [
                     {
@@ -57,7 +57,7 @@ class BlogService {
                 offset
             });
 
-            let blogs = blogsResult.rows.map((blog) => {
+            let blogs = blog.rows.map((blog) => {
                 const categoryName = blog.Category?.name || null; // Extract 'name' from Categories
                 return {
                     id: blog.id,
