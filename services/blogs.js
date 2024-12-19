@@ -48,7 +48,7 @@ class BlogService {
                     },
                     {
                         model: Categories,
-                        attributes: ["name"]
+                        attributes: ["title"]
                     }
                 ],
                 distinct: true,
@@ -58,7 +58,7 @@ class BlogService {
             });
 
             let blogs = blog.rows.map((blog) => {
-                const categoryName = blog.Categories.name || null; // Extract 'name' from Categories
+                const categoryName = blog.Categories.title || null; // Extract 'name' from Categories
                 return {
                     id: blog.id,
                     title: blog.title,
