@@ -67,12 +67,15 @@ class BlogService {
                     meta_tag: blog.meta_tag,
                     meta_description: blog.meta_description,
                     status: blog.status,
-                    category_id: categoryName, // Include category as 'category_id'
-                    documents: blog.documents, // Include documents as-is
+                    category_id: categoryName, 
+                    documents: blog.documents, 
                 };
             });
 
-            return blogs;
+            return {
+                count: blog.count,
+                rows: blogs
+            };
 
         } catch (error) {
             next(error)
