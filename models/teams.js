@@ -30,7 +30,8 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     position: DataTypes.STRING,
     description: DataTypes.TEXT,
-    link: DataTypes.STRING
+    link: DataTypes.STRING,
+    is_executive: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Teams',

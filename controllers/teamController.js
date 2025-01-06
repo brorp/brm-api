@@ -10,6 +10,7 @@ class TeamController {
                 "position",
                 "description",
                 "link",
+                "is_executive",
                 { 'documents': [
                         "id",
                         "file_type",
@@ -62,6 +63,7 @@ class TeamController {
                 "position",
                 "description",
                 "link",
+                "is_executive",
                 { 'documents': [
                         "id",
                         "file_type",
