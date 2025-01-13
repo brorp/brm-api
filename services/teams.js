@@ -31,7 +31,10 @@ class TeamService {
                 distinct: true,
                 limit,
                 offset,
-                order: [['is_executive', 'DESC']],
+                order: [
+                    ['is_executive', 'DESC'],
+                    ['createdAt', 'DESC']
+                ],
             });
 
             return teams;

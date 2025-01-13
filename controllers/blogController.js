@@ -47,7 +47,7 @@ class BlogController {
     static all_web = async(req,res,next) => {
         try {
             let { page, limit } = req.query
-            let data = await BlogService.all(req.query, "published", next);
+            let data = await BlogService.all(req.query, next);
             if (data) {
                 res.status(200).json(pagination(data, { page, limit }));
             }
