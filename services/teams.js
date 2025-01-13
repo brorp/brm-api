@@ -33,7 +33,7 @@ class TeamService {
                 offset,
                 order: [
                     ['is_executive', 'DESC'],
-                    ['createdAt', 'DESC']
+                    ['createdAt', 'ASC']
                 ],
             });
 
