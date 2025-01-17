@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     meta_tag: DataTypes.ARRAY(DataTypes.STRING),
-    meta_description: DataTypes.STRING,
+    meta_description: DataTypes.TEXT,
     status: DataTypes.ENUM('published', 'draft', 'deleted')
   }, {
     sequelize,
